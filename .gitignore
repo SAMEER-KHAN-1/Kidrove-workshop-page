@@ -1,0 +1,16 @@
+node_modules
+client/node_modules
+server/node_modules
+
+uploads
+
+.env
+.env.local
+
+dist
+build
+
+.vscode
+
+.thumbnail
+*.log
