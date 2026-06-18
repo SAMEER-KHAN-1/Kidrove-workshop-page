@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #0d1117; color: #e6edf3; -webkit-font-smoothing: antialiased; }
+pre { margin: 0 !important; border-radius: 0 0 12px 12px !important; }
+pre code.hljs { font-family: 'JetBrains Mono', monospace !important; font-size: 13px !important; line-height: 1.7 !important; padding: 24px !important; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+</style>
+</helmet>
+
+<!-- HEADER -->
+<header style="background: #161b22; border-bottom: 1px solid #30363d; padding: 0 32px; position: sticky; top: 0; z-index: 50;">
+  <div style="max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #f97316, #dc2626); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 16px;">🤖</div>
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #e6edf3;">Kidrove Workshop</span>
+      <span style="color: #484f58; font-size: 14px;">/</span>
+      <span style="color: #8b949e; font-size: 14px;">Code Deliverables</span>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <span style="background: #1f6feb22; border: 1px solid #1f6feb55; color: #58a6ff; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 100px;">React 18</span>
+      <span style="background: #238636aa; border: 1px solid #2ea04355; color: #3fb950; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 100px;">Express 4</span>
+      <span style="background: #6e40c922; border: 1px solid #6e40c955; color: #a5a9ff; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 100px;">Tailwind 4</span>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<div style="background: #161b22; border-bottom: 1px solid #30363d; padding: 0 32px;">
+  <div style="max-width: 1100px; margin: 0 auto; display: flex; gap: 4px;">
+    <button onClick="{{ setTab_frontend }}" style="padding: 12px 18px; background: none; border: none; border-bottom: 2px solid {{ tab_fe_border }}; color: {{ tab_fe_color }}; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif;">📁 Frontend</button>
+    <button onClick="{{ setTab_backend }}" style="padding: 12px 18px; background: none; border: none; border-bottom: 2px solid {{ tab_be_border }}; color: {{ tab_be_color }}; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif;">⚙️ Backend</button>
+    <button onClick="{{ setTab_setup }}" style="padding: 12px 18px; background: none; border: none; border-bottom: 2px solid {{ tab_setup_border }}; color: {{ tab_setup_color }}; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif;">📋 Setup Guide</button>
+    <button onClick="{{ setTab_note }}" style="padding: 12px 18px; background: none; border: none; border-bottom: 2px solid {{ tab_note_border }}; color: {{ tab_note_color }}; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif;">📝 Submission Note</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div style="max-width: 1100px; margin: 0 auto; padding: 32px;">
+
+  <!-- FRONTEND TAB -->
+  <sc-if value="{{ isFrontend }}" hint-placeholder-val="{{ true }}">
+    <div style="display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: start;">
+      <!-- File tree -->
+      <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 16px; position: sticky; top: 80px;">
+        <div style="font-size: 11px; font-weight: 700; color: #484f58; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">client/src/</div>
+        <sc-for list="{{ feFiles }}" as="file" hint-placeholder-count="9">
+          <button onClick="{{ file.select }}" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 7px; background: {{ file.bg }}; border: none; cursor: pointer; margin-bottom: 2px; text-align: left;">
+            <span style="font-size: 13px;">{{ file.icon }}</span>
+            <span style="font-size: 13px; font-family: 'JetBrains Mono', monospace; color: {{ file.color }}; font-weight: 500;">{{ file.name }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <!-- Code panel -->
+      <div style="min-width: 0;">
+        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid #30363d;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b949e;">{{ feActivePath }}</span>
+            <span style="background: #21262d; border: 1px solid #30363d; color: #8b949e; font-size: 11px; padding: 3px 8px; border-radius: 5px; font-family: 'JetBrains Mono', monospace;">{{ feActiveLang }}</span>
+          </div>
+          <pre><code class="{{ feActiveLang }}">{{ feActiveCode }}</code></pre>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- BACKEND TAB -->
+  <sc-if value="{{ isBackend }}" hint-placeholder-val="{{ false }}">
+    <div style="display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: start;">
+      <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 16px; position: sticky; top: 80px;">
+        <div style="font-size: 11px; font-weight: 700; color: #484f58; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">server/</div>
+        <sc-for list="{{ beFiles }}" as="file" hint-placeholder-count="3">
+          <button onClick="{{ file.select }}" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 7px; background: {{ file.bg }}; border: none; cursor: pointer; margin-bottom: 2px; text-align: left;">
+            <span style="font-size: 13px;">{{ file.icon }}</span>
+            <span style="font-size: 13px; font-family: 'JetBrains Mono', monospace; color: {{ file.color }};">{{ file.name }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="min-width: 0;">
+        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid #30363d;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b949e;">{{ beActivePath }}</span>
+            <span style="background: #21262d; border: 1px solid #30363d; color: #8b949e; font-size: 11px; padding: 3px 8px; border-radius: 5px; font-family: 'JetBrains Mono', monospace;">{{ beActiveLang }}</span>
+          </div>
+          <pre><code class="{{ beActiveLang }}">{{ beActiveCode }}</code></pre>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- SETUP TAB -->
+  <sc-if value="{{ isSetup }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width: 760px;">
+      <sc-for list="{{ setupSections }}" as="section" hint-placeholder-count="4">
+        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 14px; overflow: hidden; margin-bottom: 20px;">
+          <div style="padding: 16px 22px; border-bottom: 1px solid #30363d; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 18px;">{{ section.icon }}</span>
+            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #e6edf3;">{{ section.title }}</span>
+          </div>
+          <div style="padding: 20px 22px;">
+            <sc-for list="{{ section.steps }}" as="step" hint-placeholder-count="3">
+              <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start;">
+                <div style="width: 22px; height: 22px; background: #1f6feb33; border: 1px solid #1f6feb55; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                  <span style="font-size: 11px; font-weight: 700; color: #58a6ff;">{{ step.n }}</span>
+                </div>
+                <div style="flex: 1;">
+                  <p style="font-size: 14px; color: #c9d1d9; line-height: 1.6; margin-bottom: 6px;">{{ step.text }}</p>
+                  <sc-if value="{{ step.hasCmd }}" hint-placeholder-val="{{ false }}">
+                    <div style="background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #3fb950;">{{ step.cmd }}</div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <!-- SUBMISSION NOTE TAB -->
+  <sc-if value="{{ isNote }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width: 760px;">
+      <!-- Git history -->
+      <div style="background: #161b22; border: 1px solid #30363d; border-radius: 14px; overflow: hidden; margin-bottom: 24px;">
+        <div style="padding: 16px 22px; border-bottom: 1px solid #30363d; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 18px;">🔀</span>
+          <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #e6edf3;">Git Commit History</span>
+        </div>
+        <div style="padding: 6px 0;">
+          <sc-for list="{{ gitCommits }}" as="commit" hint-placeholder-count="7">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 12px 22px; border-bottom: 1px solid #21262d;">
+              <div style="width: 8px; height: 8px; background: #3fb950; border-radius: 50%; flex-shrink: 0;"></div>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #f0883e; flex-shrink: 0; width: 70px;">{{ commit.hash }}</span>
+              <span style="font-size: 13px; color: #c9d1d9; flex: 1;">{{ commit.msg }}</span>
+              <span style="font-size: 12px; color: #484f58; flex-shrink: 0;">{{ commit.time }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <!-- Submission note -->
+      <div style="background: #161b22; border: 1px solid #30363d; border-radius: 14px; overflow: hidden;">
+        <div style="padding: 16px 22px; border-bottom: 1px solid #30363d; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 18px;">📝</span>
+          <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #e6edf3;">Submission Note</span>
+          <span style="color: #484f58; font-size: 13px; margin-left: auto;">~120 words</span>
+        </div>
+        <div style="padding: 24px 22px;">
+          <p style="font-size: 15px; color: #c9d1d9; line-height: 1.8; margin-bottom: 16px;">I approached this assignment by breaking the project into clear frontend and backend layers. On the frontend, I used React with Vite and Tailwind CSS v4 — the component structure maps directly to the page sections (Hero, WorkshopInfo, LearningOutcomes, FAQSection, RegistrationForm), keeping each file focused and readable. All workshop data is extracted into a single <code style="background: #21262d; padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">workshopData.js</code> file so it's easy to update.</p>
+          <p style="font-size: 15px; color: #c9d1d9; line-height: 1.8; margin-bottom: 16px;">Design decisions: I went with a dark navy hero section to create an immediate "tech" impression, with orange accents for energy and CTAs. The form includes real-time client-side validation and a simulated async submit flow that mirrors the actual API call.</p>
+          <p style="font-size: 15px; color: #c9d1d9; line-height: 1.8;">Future improvements I'd add: persistent form data with React Query, email confirmation via Nodemailer, an admin dashboard to view registrations, and MongoDB for persistent storage instead of the in-memory array.</p>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440}}">
+class Component extends DCLogic {
+  state = { tab: 'frontend', feFile: 0, beFile: 0 };
+
+  componentDidMount() {
+    if (window.hljs) window.hljs.highlightAll();
+  }
+
+  componentDidUpdate() {
+    if (window.hljs) {
+      document.querySelectorAll('pre code:not(.hljs)').forEach(el => window.hljs.highlightElement(el));
+    }
+  }
+
+  renderVals() {
+    const { tab, feFile, beFile } = this.state;
+
+    const feData = [
+      {
+        name: 'App.jsx', icon: '⚛', path: 'client/src/App.jsx', lang: 'language-jsx',
+        code: `import HeroSection from './components/HeroSection';
+import WorkshopInfo from './components/WorkshopInfo';
+import LearningOutcomes from './components/LearningOutcomes';
+import FAQSection from './components/FAQSection';
+import RegistrationForm from './components/RegistrationForm';
+
+function App() {
+  return (
+    <div className="font-sans antialiased">
+      {/* Fixed navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/96 backdrop-blur border-b border-white/7 h-16">
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-full">
+          <a href="#" className="flex items-center gap-2.5 text-white font-bold text-lg">
+            <span className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+              🤖
+            </span>
+            Kidrove
+          </a>
+          <div className="flex items-center gap-5 text-sm">
+            <a href="#details" className="text-white/60 hover:text-white transition-colors">Workshop</a>
+            <a href="#outcomes" className="text-white/60 hover:text-white transition-colors">Outcomes</a>
+            <a href="#faq" className="text-white/60 hover:text-white transition-colors">FAQ</a>
+            <a href="#register" className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+              Register Now
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <HeroSection />
+      <WorkshopInfo />
+      <LearningOutcomes />
+      <FAQSection />
+      <RegistrationForm />
+
+      <footer className="bg-slate-950 border-t border-white/5 py-8">
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center gap-2 text-white/70 font-bold">
+            <span className="w-7 h-7 bg-orange-500 rounded-md flex items-center justify-center text-sm">🤖</span>
+            Kidrove
+          </div>
+          <p className="text-white/30 text-sm">© 2026 Kidrove Education. All rights reserved.</p>
+          <div className="flex gap-5 text-sm text-white/30">
+            <a href="#" className="hover:text-white/60 transition-colors">Privacy</a>
+            <a href="#" className="hover:text-white/60 transition-colors">Terms</a>
+            <a href="#" className="hover:text-white/60 transition-colors">Contact</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default App;`
+      },
+      {
+        name: 'main.jsx', icon: '▶', path: 'client/src/main.jsx', lang: 'language-jsx',
+        code: `import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.jsx';
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);`
+      },
+      {
+        name: 'workshopData.js', icon: '📦', path: 'client/src/data/workshopData.js', lang: 'language-javascript',
+        code: `// Central place for all workshop content - easier to update later
+export const workshopDetails = {
+  title: 'AI & Robotics Summer Workshop',
+  tagline: "Turn your child's curiosity into code",
+  ageGroup: '8–14 Years',
+  duration: '4 Weeks',
+  mode: 'Online',
+  fee: '₹2,999',
+  startDate: '15 July 2026',
+};
+
+export const learningOutcomes = [
+  {
+    icon: '🤖',
+    title: 'Build & Program Robots',
+    description: 'Create simple robots using visual and block-based coding tools.',
+  },
+  {
+    icon: '🧠',
+    title: 'Core AI Concepts',
+    description: 'Explore machine learning and how computers make decisions.',
+  },
+  {
+    icon: '👁️',
+    title: 'Computer Vision',
+    description: 'Build apps that recognize objects and faces using AI tools.',
+  },
+  {
+    icon: '🐍',
+    title: 'Python Fundamentals',
+    description: 'Write interactive programs in Python — the language of AI.',
+  },
+  {
+    icon: '🔍',
+    title: 'Logical Problem-Solving',
+    description: 'Develop structured thinking and a computational mindset.',
+  },
+  {
+    icon: '🎓',
+    title: 'Final Project Showcase',
+    description: 'Build and present your own tech project on the last day.',
+  },
+];
+
+export const faqs = [
+  {
+    question: 'What prior experience does my child need?',
+    answer:
+      'No prior experience needed! Designed for beginners aged 8–14, we start from the very basics and build up to real-world projects.',
+  },
+  {
+    question: 'What equipment or materials are required?',
+    answer:
+      'Just a computer with stable internet. All software is free and web-based — no physical kits required.',
+  },
+  {
+    question: 'How are the live sessions conducted?',
+    answer:
+      'Via Zoom, 5 days a week for 4 weeks. Each session is 60–90 minutes. Recordings available for 48 hours.',
+  },
+  {
+    question: 'What if my child misses a session?',
+    answer:
+      'Recordings are shared within 24 hours. We also hold twice-weekly doubt-clearing sessions.',
+  },
+];`
+      },
+      {
+        name: 'HeroSection.jsx', icon: '🦸', path: 'client/src/components/HeroSection.jsx', lang: 'language-jsx',
+        code: `import { workshopDetails } from '../data/workshopData';
+
+function HeroSection() {
+  return (
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center overflow-hidden pt-16"
+      style={{ background: 'linear-gradient(140deg, #060c1f 0%, #1a1050 55%, #2d1b69 100%)' }}
+    >
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+
+      <div className="relative max-w-3xl mx-auto px-6 py-20 text-center w-full">
+        {/* Live badge */}
+        <div className="inline-flex items-center gap-2 bg-orange-500/12 border border-orange-500/25 px-4 py-1.5 rounded-full mb-8">
+          <span className="w-2 h-2 bg-orange-500 rounded-full shadow-[0_0_8px_#f97316]" />
+          <span className="text-orange-400 text-xs font-semibold tracking-widest uppercase">
+            Enrollments Open · Starts {workshopDetails.startDate}
+          </span>
+        </div>
+
+        <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.05] tracking-tight mb-6">
+          AI &amp; Robotics
+          <br />
+          <span className="bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
+            Summer Workshop
+          </span>
+        </h1>
+
+        <p className="text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-10 leading-relaxed">
+          {workshopDetails.tagline}. A hands-on 4-week online journey
+          into AI and robotics for kids aged 8–14.
+        </p>
+
+        {/* Info chips */}
+        <div className="flex flex-wrap gap-3 justify-center mb-12">
+          <Chip icon="👦">Age {workshopDetails.ageGroup}</Chip>
+          <Chip icon="📅">{workshopDetails.duration}</Chip>
+          <Chip icon="💻">{workshopDetails.mode}</Chip>
+          <Chip accent icon="🏷️">{workshopDetails.fee} Only</Chip>
+        </div>
+
+        <div className="flex gap-4 justify-center flex-wrap">
+          <a
+            href="#register"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-colors shadow-lg shadow-orange-500/30"
+          >
+            Register Now →
+          </a>
+          <a
+            href="#details"
+            className="bg-white/7 border border-white/15 hover:bg-white/12 text-white/85 px-8 py-4 rounded-xl text-lg transition-colors"
+          >
+            Learn More ↓
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Small reusable chip — kept in same file since it's only used here
+function Chip({ icon, children, accent = false }) {
+  return (
+    <span
+      className={\`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border \${
+        accent
+          ? 'bg-orange-500/15 border-orange-500/30 text-orange-400'
+          : 'bg-white/7 border-white/10 text-white/80'
+      }\`}
+    >
+      {icon} {children}
+    </span>
+  );
+}
+
+export default HeroSection;`
+      },
+      {
+        name: 'WorkshopInfo.jsx', icon: '📋', path: 'client/src/components/WorkshopInfo.jsx', lang: 'language-jsx',
+        code: `import { workshopDetails } from '../data/workshopData';
+
+const details = [
+  { icon: '👦', label: 'Age Group',    value: workshopDetails.ageGroup,  accent: false },
+  { icon: '⏱️', label: 'Duration',     value: workshopDetails.duration,  accent: false },
+  { icon: '💻', label: 'Mode',         value: workshopDetails.mode,      accent: false },
+  { icon: '🏷️', label: 'Workshop Fee', value: workshopDetails.fee,       accent: true  },
+  { icon: '🗓️', label: 'Start Date',   value: workshopDetails.startDate, accent: false },
+];
+
+function WorkshopInfo() {
+  return (
+    <section id="details" className="py-24 bg-white">
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeader
+          tag="Workshop Details"
+          tagColor="text-blue-600 bg-blue-50"
+          title="Workshop at a Glance"
+          subtitle="Everything you need to know about the AI & Robotics Summer Workshop."
+        />
+
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {details.map((item) => (
+            <div
+              key={item.label}
+              className={\`rounded-2xl border p-6 text-center \${
+                item.accent ? 'bg-orange-50 border-orange-200' : 'bg-slate-50 border-slate-200'
+              }\`}
+            >
+              <div className="text-3xl mb-3">{item.icon}</div>
+              <p className={\`text-xs font-bold uppercase tracking-widest mb-2 \${
+                item.accent ? 'text-orange-400' : 'text-slate-400'
+              }\`}>{item.label}</p>
+              <p className={\`text-xl font-bold \${item.accent ? 'text-orange-600' : 'text-slate-900'}\`}>
+                {item.value}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Reusable section header — shared across components
+export function SectionHeader({ tag, tagColor, title, subtitle }) {
+  return (
+    <div className="text-center mb-14">
+      <span className={\`inline-block text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4 \${tagColor}\`}>
+        {tag}
+      </span>
+      <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4">{title}</h2>
+      <p className="text-slate-500 text-lg max-w-md mx-auto">{subtitle}</p>
+    </div>
+  );
+}
+
+export default WorkshopInfo;`
+      },
+      {
+        name: 'LearningOutcomes.jsx', icon: '🎯', path: 'client/src/components/LearningOutcomes.jsx', lang: 'language-jsx',
+        code: `import { learningOutcomes } from '../data/workshopData';
+import { SectionHeader } from './WorkshopInfo';
+
+function LearningOutcomes() {
+  return (
+    <section id="outcomes" className="py-24 bg-slate-50">
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeader
+          tag="Learning Outcomes"
+          tagColor="text-green-600 bg-green-50"
+          title="What Your Child Will Learn"
+          subtitle="Practical, future-ready skills that extend well beyond the workshop."
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {learningOutcomes.map((item) => (
+            <div
+              key={item.title}
+              className="bg-white border border-slate-200 rounded-2xl p-6 flex gap-4 items-start hover:shadow-md hover:-translate-y-0.5 transition-all"
+            >
+              <div className="w-12 h-12 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">
+                {item.icon}
+              </div>
+              <div>
+                <h3 className="font-semibold text-slate-900 mb-1.5">{item.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default LearningOutcomes;`
+      },
+      {
+        name: 'FAQSection.jsx', icon: '❓', path: 'client/src/components/FAQSection.jsx', lang: 'language-jsx',
+        code: `import { useState } from 'react';
+import { faqs } from '../data/workshopData';
+import { SectionHeader } from './WorkshopInfo';
+
+function FAQSection() {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggle = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <section id="faq" className="py-24 bg-white">
+      <div className="max-w-2xl mx-auto px-6">
+        <SectionHeader
+          tag="FAQ"
+          tagColor="text-violet-600 bg-violet-50"
+          title="Frequently Asked Questions"
+          subtitle="Got questions? We've got answers."
+        />
+
+        <div className="flex flex-col gap-3">
+          {faqs.map((faq, index) => (
+            <div key={index} className="border border-slate-200 rounded-2xl overflow-hidden">
+              <button
+                onClick={() => toggle(index)}
+                className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition-colors"
+              >
+                <span className="font-semibold text-slate-900 pr-4 leading-snug">
+                  {faq.question}
+                </span>
+                <span className="text-slate-400 text-xs flex-shrink-0">
+                  {openIndex === index ? '▲' : '▼'}
+                </span>
+              </button>
+
+              {openIndex === index && (
+                <div className="px-5 pb-5 pt-1 border-t border-slate-100">
+                  <p className="text-slate-500 text-sm leading-relaxed">{faq.answer}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default FAQSection;`
+      },
+      {
+        name: 'RegistrationForm.jsx', icon: '📝', path: 'client/src/components/RegistrationForm.jsx', lang: 'language-jsx',
+        code: `import { useState } from 'react';
+
+function RegistrationForm() {
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
+  };
+
+  const validate = () => {
+    const errs = {};
+    if (!formData.name.trim()) errs.name = 'Name is required';
+    if (!formData.email.trim()) errs.email = 'Email is required';
+    else if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(formData.email)) errs.email = 'Enter a valid email';
+    if (!formData.phone.trim()) errs.phone = 'Phone is required';
+    else if (!/^\\d{10}$/.test(formData.phone.replace(/[\\s-]/g, ''))) errs.phone = 'Enter a valid 10-digit number';
+    return errs;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) { setErrors(validationErrors); return; }
+
+    setLoading(true);
+    try {
+      const res = await fetch(\`\${import.meta.env.VITE_API_URL}/api/enquiry\`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok) { setSubmitted(true); }
+      else { setErrors({ general: data.message || 'Something went wrong.' }); }
+    } catch {
+      setErrors({ general: 'Network error. Please try again.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <section id="register" style={{ background: 'linear-gradient(140deg, #060c1f, #1a1050)' }} className="py-24">
+        <div className="max-w-md mx-auto px-6 text-center">
+          <div className="text-6xl mb-5">🎉</div>
+          <h3 className="text-3xl font-bold text-white mb-3">You're All Set!</h3>
+          <p className="text-white/60 text-lg leading-relaxed">
+            Our team will reach out within 24 hours with all the details.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="register" style={{ background: 'linear-gradient(140deg, #060c1f, #1a1050)' }} className="py-24">
+      <div className="max-w-md mx-auto px-6">
+        <div className="text-center mb-10">
+          <span className="inline-block bg-orange-500/15 text-orange-400 text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4 border border-orange-500/25">
+            Limited Seats
+          </span>
+          <h2 className="text-4xl font-bold text-white tracking-tight mb-3">Secure Your Spot</h2>
+          <p className="text-white/55 leading-relaxed">
+            Register your interest and we'll send all the details within 24 hours.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} noValidate className="bg-white/4 border border-white/9 rounded-2xl p-8">
+          {errors.general && (
+            <div className="bg-red-500/10 border border-red-500/25 text-red-400 rounded-xl p-3 mb-5 text-sm">
+              {errors.general}
+            </div>
+          )}
+
+          {[
+            { label: 'Full Name', name: 'name', type: 'text', placeholder: 'e.g. Priya Sharma' },
+            { label: 'Email Address', name: 'email', type: 'email', placeholder: 'e.g. parent@gmail.com' },
+            { label: 'Phone Number', name: 'phone', type: 'tel', placeholder: '10-digit mobile number' },
+          ].map((field) => (
+            <div key={field.name} className="mb-5">
+              <label className="block text-white/75 text-sm font-semibold mb-2">{field.label} *</label>
+              <input
+                type={field.type}
+                name={field.name}
+                value={formData[field.name]}
+                onChange={handleChange}
+                placeholder={field.placeholder}
+                className="w-full bg-white/7 border border-white/12 text-white placeholder-white/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:ring-2 focus:ring-orange-500/15"
+              />
+              {errors[field.name] && (
+                <p className="text-red-400 text-xs mt-1.5">{errors[field.name]}</p>
+              )}
+            </div>
+          ))}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-70 text-white font-bold py-4 rounded-xl transition-colors mt-2"
+          >
+            {loading ? 'Submitting...' : 'Register Now →'}
+          </button>
+
+          <p className="text-center text-white/35 text-xs mt-4">
+            No spam. We'll only contact you about this workshop.
+          </p>
+        </form>
+      </div>
+    </section>
+  );
+}
+
+export default RegistrationForm;`
+      },
+      {
+        name: 'package.json', icon: '📦', path: 'client/package.json', lang: 'language-json',
+        code: `{
+  "name": "kidrove-workshop-client",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.0.7"
+  }
+}`
+      },
+    ];
+
+    const beData = [
+      {
+        name: 'server.js', icon: '🖥', path: 'server/server.js', lang: 'language-javascript',
+        code: `const express = require('express');
+const cors = require('cors');
+const enquiryRouter = require('./routes/enquiry');
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+}));
+app.use(express.json());
+
+// Routes
+app.use('/api/enquiry', enquiryRouter);
+
+// Health check — useful for Render deployment
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', uptime: process.uptime() });
+});
+
+app.listen(PORT, () => {
+  console.log(\`Server running on port \${PORT}\`);
+});`
+      },
+      {
+        name: 'routes/enquiry.js', icon: '📡', path: 'server/routes/enquiry.js', lang: 'language-javascript',
+        code: `const express = require('express');
+const router = express.Router();
+
+// Simple in-memory store (swap with MongoDB later)
+const enquiries = [];
+
+// POST /api/enquiry
+router.post('/', (req, res) => {
+  const { name, email, phone } = req.body;
+
+  // Validate required fields
+  if (!name || !email || !phone) {
+    return res.status(400).json({
+      success: false,
+      message: 'All fields (name, email, phone) are required.',
+    });
+  }
+
+  const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({
+      success: false,
+      message: 'Please provide a valid email address.',
+    });
+  }
+
+  const newEnquiry = {
+    id: enquiries.length + 1,
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
+    phone: phone.trim(),
+    createdAt: new Date().toISOString(),
+  };
+
+  enquiries.push(newEnquiry);
+  console.log(\`New enquiry #\${newEnquiry.id}: \${name} (\${email})\`);
+
+  return res.status(201).json({
+    success: true,
+    message: "Enquiry received! We'll reach out within 24 hours.",
+    data: { id: newEnquiry.id },
+  });
+});
+
+// GET /api/enquiry — view all (admin/testing only)
+router.get('/', (req, res) => {
+  res.json({ success: true, count: enquiries.length, data: enquiries });
+});
+
+module.exports = router;`
+      },
+      {
+        name: 'package.json', icon: '📦', path: 'server/package.json', lang: 'language-json',
+        code: `{
+  "name": "kidrove-workshop-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}`
+      },
+    ];
+
+    const feFiles = feData.map((f, i) => ({
+      ...f,
+      bg: feFile === i ? 'rgba(31,111,235,0.15)' : 'transparent',
+      color: feFile === i ? '#58a6ff' : '#8b949e',
+      select: () => this.setState({ feFile: i }),
+    }));
+
+    const beFiles = beData.map((f, i) => ({
+      ...f,
+      bg: beFile === i ? 'rgba(31,111,235,0.15)' : 'transparent',
+      color: beFile === i ? '#58a6ff' : '#8b949e',
+      select: () => this.setState({ beFile: i }),
+    }));
+
+    const setupSections = [
+      {
+        icon: '⚡', title: 'Frontend Setup (Vite + React + Tailwind)',
+        steps: [
+          { n: 1, text: 'Clone the repo and navigate to the client folder', hasCmd: true, cmd: 'cd client' },
+          { n: 2, text: 'Install dependencies', hasCmd: true, cmd: 'npm install' },
+          { n: 3, text: 'Create a .env file in /client with your backend URL:', hasCmd: true, cmd: 'VITE_API_URL=http://localhost:3001' },
+          { n: 4, text: 'Start the dev server', hasCmd: true, cmd: 'npm run dev' },
+        ],
+      },
+      {
+        icon: '🖥', title: 'Backend Setup (Express)',
+        steps: [
+          { n: 1, text: 'Navigate to the server folder', hasCmd: true, cmd: 'cd server' },
+          { n: 2, text: 'Install dependencies', hasCmd: true, cmd: 'npm install' },
+          { n: 3, text: 'Run the dev server with nodemon', hasCmd: true, cmd: 'npm run dev' },
+          { n: 4, text: 'Test the health endpoint', hasCmd: true, cmd: 'curl http://localhost:3001/api/health' },
+        ],
+      },
+      {
+        icon: '🚀', title: 'Deploy Frontend to Vercel',
+        steps: [
+          { n: 1, text: 'Push the project to GitHub, then connect the repo to Vercel.', hasCmd: false, cmd: '' },
+          { n: 2, text: 'Set Root Directory to client/ in Vercel project settings.', hasCmd: false, cmd: '' },
+          { n: 3, text: 'Add the environment variable in Vercel dashboard:', hasCmd: true, cmd: 'VITE_API_URL=https://your-backend.onrender.com' },
+          { n: 4, text: 'Deploy — Vercel auto-detects Vite and configures the build.', hasCmd: false, cmd: '' },
+        ],
+      },
+      {
+        icon: '🌐', title: 'Deploy Backend to Render',
+        steps: [
+          { n: 1, text: 'Create a new Web Service on Render, connect your GitHub repo.', hasCmd: false, cmd: '' },
+          { n: 2, text: 'Set Root Directory to server/ and Build Command to:', hasCmd: true, cmd: 'npm install' },
+          { n: 3, text: 'Set Start Command to:', hasCmd: true, cmd: 'node server.js' },
+          { n: 4, text: 'Add environment variable CLIENT_URL pointing to your Vercel domain.', hasCmd: false, cmd: '' },
+        ],
+      },
+    ];
+
+    const gitCommits = [
+      { hash: 'a3f9c21', msg: 'init: set up Vite + React + Tailwind project structure', time: '2d ago' },
+      { hash: 'b12e084', msg: 'feat: add workshopData.js with all content', time: '2d ago' },
+      { hash: 'c7d3a55', msg: 'feat: build HeroSection with gradient + chips', time: '2d ago' },
+      { hash: 'd94f112', msg: 'feat: add WorkshopInfo detail cards grid', time: '1d ago' },
+      { hash: 'e5b8c39', msg: 'feat: add LearningOutcomes and FAQSection with accordion', time: '1d ago' },
+      { hash: 'f21a760', msg: 'feat: RegistrationForm with validation + async submit', time: '1d ago' },
+      { hash: 'g8e4d93', msg: 'feat: Express server + POST /api/enquiry with validation', time: '12h ago' },
+      { hash: 'h3c7f01', msg: 'fix: phone validation, error messages, responsive tweaks', time: '6h ago' },
+      { hash: 'i9b2e44', msg: 'chore: add .env.example and deployment notes', time: '2h ago' },
+    ];
+
+    const isFrontend = tab === 'frontend';
+    const isBackend = tab === 'backend';
+    const isSetup = tab === 'setup';
+    const isNote = tab === 'note';
+
+    return {
+      isFrontend, isBackend, isSetup, isNote,
+      setTab_frontend: () => this.setState({ tab: 'frontend' }),
+      setTab_backend: () => this.setState({ tab: 'backend' }),
+      setTab_setup: () => this.setState({ tab: 'setup' }),
+      setTab_note: () => this.setState({ tab: 'note' }),
+      tab_fe_border: isFrontend ? '#f97316' : 'transparent',
+      tab_fe_color: isFrontend ? '#e6edf3' : '#8b949e',
+      tab_be_border: isBackend ? '#f97316' : 'transparent',
+      tab_be_color: isBackend ? '#e6edf3' : '#8b949e',
+      tab_setup_border: isSetup ? '#f97316' : 'transparent',
+      tab_setup_color: isSetup ? '#e6edf3' : '#8b949e',
+      tab_note_border: isNote ? '#f97316' : 'transparent',
+      tab_note_color: isNote ? '#e6edf3' : '#8b949e',
+      feFiles,
+      beFiles,
+      feActivePath: feData[feFile].path,
+      feActiveLang: feData[feFile].lang,
+      feActiveCode: feData[feFile].code,
+      beActivePath: beData[beFile].path,
+      beActiveLang: beData[beFile].lang,
+      beActiveCode: beData[beFile].code,
+      setupSections,
+      gitCommits,
+    };
+  }
+}
+</script>
+</body>
+</html>

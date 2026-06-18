@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { font-family: 'DM Sans', sans-serif; color: #1e293b; background: #fff; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+@keyframes heroEntry { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes orbFloat { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(10px, -14px); } }
+input::placeholder { color: rgba(255,255,255,0.28); }
+input:focus { outline: none; border-color: rgba(249,115,22,0.55) !important; box-shadow: 0 0 0 3px rgba(249,115,22,0.12) !important; }
+</style>
+</helmet>
+
+<!-- NAV -->
+<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(15,23,42,0.96); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.07);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px;">
+    <a href="#" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <div style="width: 34px; height: 34px; background: linear-gradient(135deg, #f97316, #dc2626); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px;">🤖</div>
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.5px;">Kidrove</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <a href="#details" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 6px;">Workshop</a>
+      <a href="#outcomes" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 6px;">Outcomes</a>
+      <a href="#faq" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 6px;">FAQ</a>
+      <a href="#register" style="background: linear-gradient(135deg, #f97316, #ea580c); color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; padding: 9px 18px; border-radius: 8px; margin-left: 8px;">Register Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="position: relative; min-height: 100vh; display: flex; align-items: center; background: linear-gradient(140deg, #060c1f 0%, #1a1050 55%, #2d1b69 100%); overflow: hidden; padding-top: 64px;">
+  <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none;"></div>
+  <div style="position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(79,70,229,0.18) 0%, transparent 65%); top: -200px; right: -150px; animation: orbFloat 9s ease-in-out infinite; pointer-events: none;"></div>
+  <div style="position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.11) 0%, transparent 65%); bottom: -150px; left: -100px; animation: orbFloat 12s ease-in-out infinite reverse; pointer-events: none;"></div>
+
+  <div style="position: relative; width: 100%; max-width: 860px; margin: 0 auto; padding: 80px 24px 100px; text-align: center; animation: heroEntry 0.9s cubic-bezier(0.16,1,0.3,1) both;">
+    <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25); padding: 7px 16px; border-radius: 100px; margin-bottom: 32px;">
+      <span style="width: 7px; height: 7px; background: #f97316; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #f97316;"></span>
+      <span style="color: #fb923c; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">Enrollments Open · Starts 15 July 2026</span>
+    </div>
+
+    <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(38px, 7vw, 76px); font-weight: 800; color: #fff; line-height: 1.05; letter-spacing: -2.5px; margin-bottom: 24px;">
+      AI &amp; Robotics<br>
+      <span style="background: linear-gradient(90deg, #f97316 0%, #fbbf24 60%, #f97316 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Summer Workshop</span>
+    </h1>
+
+    <p style="font-size: clamp(16px, 2.5vw, 20px); color: rgba(255,255,255,0.6); max-width: 560px; margin: 0 auto 40px; line-height: 1.65;">
+      Turn your child's curiosity into code. A hands-on 4-week online journey into the future of AI and robotics — built for kids aged 8 to 14.
+    </p>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 44px;">
+      <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 9px 16px;">
+        <span style="font-size: 15px;">👦</span>
+        <span style="color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;">Age 8–14</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 9px 16px;">
+        <span style="font-size: 15px;">📅</span>
+        <span style="color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;">4 Weeks</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 9px 16px;">
+        <span style="font-size: 15px;">💻</span>
+        <span style="color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;">100% Online</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; background: rgba(249,115,22,0.18); border: 1px solid rgba(249,115,22,0.35); border-radius: 100px; padding: 9px 16px;">
+        <span style="font-size: 15px;">🏷️</span>
+        <span style="color: #fb923c; font-size: 13px; font-weight: 600;">₹2,999 Only</span>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+      <a href="#register" style="background: linear-gradient(135deg, #f97316, #ea580c); color: #fff; padding: 15px 32px; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: 600; letter-spacing: -0.3px; box-shadow: 0 8px 28px rgba(249,115,22,0.35);">Register Now →</a>
+      <a href="#details" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.85); padding: 15px 32px; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: 500;">Learn More ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- WORKSHOP DETAILS -->
+<section id="details" style="padding: 96px 24px; background: #fff;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 56px;">
+      <span style="display: inline-block; background: #eff6ff; color: #2563eb; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 16px;">Workshop Details</span>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 46px); font-weight: 700; color: #0f172a; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;">Workshop at a Glance</h2>
+      <p style="color: #64748b; font-size: 17px; max-width: 420px; margin: 0 auto; line-height: 1.65;">Everything you need to know about the AI &amp; Robotics Summer Workshop.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px;">
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 18px; text-align: center;">
+        <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #eff6ff, #dbeafe); border-radius: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">👦</div>
+        <div style="font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Age Group</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #0f172a;">8–14 <span style="font-size: 13px; color: #64748b; font-weight: 500;">Years</span></div>
+      </div>
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 18px; text-align: center;">
+        <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-radius: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">⏱️</div>
+        <div style="font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Duration</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #0f172a;">4 <span style="font-size: 13px; color: #64748b; font-weight: 500;">Weeks</span></div>
+      </div>
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 18px; text-align: center;">
+        <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #fdf4ff, #fae8ff); border-radius: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">💻</div>
+        <div style="font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Mode</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #0f172a;">Online</div>
+      </div>
+      <div style="background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 1.5px solid #fed7aa; border-radius: 18px; padding: 28px 18px; text-align: center;">
+        <div style="width: 52px; height: 52px; background: rgba(255,255,255,0.7); border-radius: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">🏷️</div>
+        <div style="font-size: 11px; color: #c2793b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Workshop Fee</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #c2540a;">₹2,999</div>
+      </div>
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 18px; text-align: center;">
+        <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-radius: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">🗓️</div>
+        <div style="font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Start Date</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #0f172a;">15 July 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNING OUTCOMES -->
+<section id="outcomes" style="padding: 96px 24px; background: #f8fafc;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 56px;">
+      <span style="display: inline-block; background: #f0fdf4; color: #16a34a; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 16px;">Learning Outcomes</span>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 46px); font-weight: 700; color: #0f172a; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;">What Your Child Will Learn</h2>
+      <p style="color: #64748b; font-size: 17px; max-width: 420px; margin: 0 auto; line-height: 1.65;">Practical, future-ready skills that extend well beyond the workshop.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px;">
+      <sc-for list="{{ outcomes }}" as="item" hint-placeholder-count="6">
+        <div style="background: #fff; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+          <div style="width: 46px; height: 46px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; border: 1.5px solid #e2e8f0;">{{ item.icon }}</div>
+          <div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #0f172a; margin-bottom: 5px;">{{ item.title }}</div>
+            <div style="font-size: 14px; color: #64748b; line-height: 1.65;">{{ item.desc }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding: 96px 24px; background: #fff;">
+  <div style="max-width: 740px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 56px;">
+      <span style="display: inline-block; background: #faf5ff; color: #7c3aed; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 16px;">FAQ</span>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 46px); font-weight: 700; color: #0f172a; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;">Frequently Asked Questions</h2>
+      <p style="color: #64748b; font-size: 17px; line-height: 1.65;">Got questions? We've got answers.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="4">
+        <div style="border: 1.5px solid #e2e8f0; border-radius: 16px; overflow: hidden; background: #fff;">
+          <button onClick="{{ faq.toggle }}" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 20px 22px; background: none; border: none; cursor: pointer; text-align: left; gap: 12px;">
+            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #0f172a; line-height: 1.45; flex: 1;">{{ faq.q }}</span>
+            <span style="font-size: 11px; color: #94a3b8; font-weight: 700; flex-shrink: 0; width: 18px; text-align: center;">{{ faq.chevron }}</span>
+          </button>
+          <sc-if value="{{ faq.isOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 22px 20px; border-top: 1.5px solid #f1f5f9;">
+              <p style="padding-top: 16px; color: #64748b; font-size: 14px; line-height: 1.75;">{{ faq.a }}</p>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTRATION FORM -->
+<section id="register" style="padding: 96px 24px 120px; background: linear-gradient(140deg, #060c1f 0%, #1a1050 55%, #2d1b69 100%); position: relative; overflow: hidden;">
+  <div style="position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.09) 0%, transparent 65%); top: -100px; right: -100px; pointer-events: none;"></div>
+
+  <div style="max-width: 520px; margin: 0 auto; position: relative;">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <span style="display: inline-block; background: rgba(249,115,22,0.15); color: #fb923c; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 16px; border: 1px solid rgba(249,115,22,0.25);">Limited Seats Available</span>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 46px); font-weight: 700; color: #fff; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;">Secure Your Spot</h2>
+      <p style="color: rgba(255,255,255,0.55); font-size: 16px; line-height: 1.65;">Register your interest and our team will reach out within 24 hours.</p>
+    </div>
+
+    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+      <div style="background: rgba(16,185,129,0.1); border: 1.5px solid rgba(16,185,129,0.25); border-radius: 20px; padding: 52px 32px; text-align: center;">
+        <div style="font-size: 56px; margin-bottom: 18px; line-height: 1;">🎉</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 12px;">You're All Set!</h3>
+        <p style="color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.7; max-width: 340px; margin: 0 auto;">Thanks for registering. We'll send all the workshop details to your email very soon.</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ onSubmit }}" novalidate style="background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.09); border-radius: 22px; padding: 36px;">
+        <div style="margin-bottom: 22px;">
+          <label style="display: block; color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.3px;">Full Name *</label>
+          <input type="text" value="{{ nameVal }}" onChange="{{ onNameChange }}" placeholder="e.g. Priya Sharma" style="width: 100%; padding: 13px 15px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; color: #fff; font-size: 15px; font-family: 'DM Sans', sans-serif;">
+          <sc-if value="{{ nameError }}" hint-placeholder-val="{{ false }}">
+            <p style="color: #f87171; font-size: 12px; margin-top: 5px; font-weight: 500;">⚠ {{ nameError }}</p>
+          </sc-if>
+        </div>
+        <div style="margin-bottom: 22px;">
+          <label style="display: block; color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.3px;">Email Address *</label>
+          <input type="email" value="{{ emailVal }}" onChange="{{ onEmailChange }}" placeholder="e.g. parent@gmail.com" style="width: 100%; padding: 13px 15px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; color: #fff; font-size: 15px; font-family: 'DM Sans', sans-serif;">
+          <sc-if value="{{ emailError }}" hint-placeholder-val="{{ false }}">
+            <p style="color: #f87171; font-size: 12px; margin-top: 5px; font-weight: 500;">⚠ {{ emailError }}</p>
+          </sc-if>
+        </div>
+        <div style="margin-bottom: 30px;">
+          <label style="display: block; color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.3px;">Phone Number *</label>
+          <input type="tel" value="{{ phoneVal }}" onChange="{{ onPhoneChange }}" placeholder="10-digit mobile number" style="width: 100%; padding: 13px 15px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; color: #fff; font-size: 15px; font-family: 'DM Sans', sans-serif;">
+          <sc-if value="{{ phoneError }}" hint-placeholder-val="{{ false }}">
+            <p style="color: #f87171; font-size: 12px; margin-top: 5px; font-weight: 500;">⚠ {{ phoneError }}</p>
+          </sc-if>
+        </div>
+        <button type="submit" disabled="{{ submitDisabled }}" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #f97316, #ea580c); border: none; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.3px; box-shadow: 0 4px 20px rgba(249,115,22,0.3);">{{ submitLabel }}</button>
+        <p style="text-align: center; color: rgba(255,255,255,0.35); font-size: 12px; margin-top: 14px; line-height: 1.5;">No spam. We'll only contact you about this workshop.</p>
+      </form>
+    </sc-if>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background: #040810; padding: 36px 24px; border-top: 1px solid rgba(255,255,255,0.05);">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #f97316, #dc2626); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 15px;">🤖</div>
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.8);">Kidrove</span>
+    </div>
+    <p style="color: rgba(255,255,255,0.3); font-size: 13px;">© 2026 Kidrove Education Pvt. Ltd. All rights reserved.</p>
+    <div style="display: flex; gap: 20px;">
+      <a href="#" style="color: rgba(255,255,255,0.3); text-decoration: none; font-size: 13px;">Privacy Policy</a>
+      <a href="#" style="color: rgba(255,255,255,0.3); text-decoration: none; font-size: 13px;">Terms of Use</a>
+      <a href="#" style="color: rgba(255,255,255,0.3); text-decoration: none; font-size: 13px;">Contact</a>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    // Find the element that's actually scrolling (could be html, body, or a wrapping div)
+    const findScroller = () => {
+      const candidates = [
+        document.scrollingElement,
+        document.documentElement,
+        document.body,
+      ].filter(Boolean);
+      // pick the deepest one that actually overflows
+      for (const el of candidates) {
+        if (el && el.scrollHeight > el.clientHeight + 1) return el;
+      }
+      // walk up from a known section if document chain isn't scrollable
+      let node = document.getElementById('details');
+      while (node && node !== document.body) {
+        const cs = getComputedStyle(node);
+        if (/(auto|scroll)/.test(cs.overflowY) && node.scrollHeight > node.clientHeight + 1) return node;
+        node = node.parentElement;
+      }
+      return document.scrollingElement || document.documentElement;
+    };
+
+    // Custom rAF smooth scroll — independent of CSS scroll-behavior
+    const animateScrollTo = (scroller, targetY, duration = 700) => {
+      const startY = scroller.scrollTop;
+      const distance = targetY - startY;
+      if (Math.abs(distance) < 2) return;
+      const startTime = performance.now();
+      const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const step = now => {
+        const p = Math.min((now - startTime) / duration, 1);
+        scroller.scrollTop = startY + distance * ease(p);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    // Delegated click handler — survives React re-renders, no need to re-bind
+    this._smoothScrollHandler = e => {
+      const anchor = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+      const id = href.slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const scroller = findScroller();
+      const scrollerRect = (scroller === document.documentElement || scroller === document.body || scroller === document.scrollingElement)
+        ? { top: 0 }
+        : scroller.getBoundingClientRect();
+      const targetY = target.getBoundingClientRect().top - scrollerRect.top + scroller.scrollTop - 72;
+      animateScrollTo(scroller, Math.max(0, targetY));
+    };
+    document.addEventListener('click', this._smoothScrollHandler, true);
+  }
+
+  componentWillUnmount() {
+    if (this._smoothScrollHandler) {
+      document.removeEventListener('click', this._smoothScrollHandler, true);
+    }
+  }
+
+  state = {
+    openFaq: null,
+    form: { name: '', email: '', phone: '' },
+    errors: {},
+    loading: false,
+    submitted: false,
+  };
+
+  validate() {
+    const { name, email, phone } = this.state.form;
+    const errs = {};
+    if (!name.trim()) errs.name = 'Name is required';
+    if (!email.trim()) errs.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = 'Enter a valid email address';
+    if (!phone.trim()) errs.phone = 'Phone number is required';
+    else if (!/^\d{10}$/.test(phone.replace(/[\s-]/g, ''))) errs.phone = 'Enter a valid 10-digit number';
+    return errs;
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const errs = this.validate();
+    if (Object.keys(errs).length > 0) {
+      this.setState({ errors: errs });
+      return;
+    }
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ loading: false, submitted: true });
+    }, 1500);
+  }
+
+  renderVals() {
+    const { openFaq, form, errors, loading, submitted } = this.state;
+
+    const outcomes = [
+      { icon: '🤖', title: 'Build & Program Robots', desc: 'Create simple robots using visual and block-based coding tools, and bring them to life.' },
+      { icon: '🧠', title: 'Core AI Concepts', desc: 'Explore machine learning, data patterns, and how computers make decisions through fun experiments.' },
+      { icon: '👁️', title: 'Computer Vision', desc: 'Build apps that recognize objects, colors, and faces using beginner-friendly AI tools.' },
+      { icon: '🐍', title: 'Python Fundamentals', desc: 'Code interactive programs in Python — the most popular AI language in the world.' },
+      { icon: '🔍', title: 'Logical Problem-Solving', desc: 'Develop structured thinking, logical reasoning, and a computational mindset.' },
+      { icon: '🎓', title: 'Final Project Showcase', desc: 'Design, build, and present your own tech project to family and peers on the last day.' },
+    ];
+
+    const faqs = [
+      { q: 'What prior experience does my child need?', a: 'No prior experience is needed! Our curriculum is designed for complete beginners aged 8–14. We start from the very basics and gradually build up to exciting, real-world projects.' },
+      { q: 'What equipment or materials are required?', a: 'Just a computer or laptop with a stable internet connection. All software tools are free and web-based — no physical robot kits or special hardware required.' },
+      { q: 'How are the live sessions conducted?', a: 'Sessions are via Zoom, 5 days a week for 4 weeks. Each session is 60–90 minutes. Recordings are available for 48 hours after each class so no one falls behind.' },
+      { q: 'What happens if my child misses a session?', a: 'Recording links are shared within 24 hours. We also hold twice-weekly doubt-clearing sessions so students can catch up and ask questions at any time.' },
+    ].map((f, i) => ({
+      ...f,
+      isOpen: openFaq === i,
+      chevron: openFaq === i ? '▲' : '▼',
+      toggle: () => this.setState(s => ({ openFaq: s.openFaq === i ? null : i })),
+    }));
+
+    return {
+      outcomes,
+      faqs,
+      nameVal: form.name,
+      emailVal: form.email,
+      phoneVal: form.phone,
+      nameError: errors.name || '',
+      emailError: errors.email || '',
+      phoneError: errors.phone || '',
+      onNameChange: e => this.setState(s => ({ form: { ...s.form, name: e.target.value }, errors: { ...s.errors, name: '' } })),
+      onEmailChange: e => this.setState(s => ({ form: { ...s.form, email: e.target.value }, errors: { ...s.errors, email: '' } })),
+      onPhoneChange: e => this.setState(s => ({ form: { ...s.form, phone: e.target.value }, errors: { ...s.errors, phone: '' } })),
+      onSubmit: e => this.handleSubmit(e),
+      loading,
+      submitted,
+      showForm: !submitted,
+      submitDisabled: loading,
+      submitLabel: loading ? 'Submitting...' : 'Register Now →',
+    };
+  }
+}
+</script>
+</body>
+</html>
