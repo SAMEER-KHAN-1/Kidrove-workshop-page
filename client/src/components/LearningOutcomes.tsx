@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { learningOutcomes } from '../data/workshopData';
 import { SectionHeader } from './WorkshopInfo';
 

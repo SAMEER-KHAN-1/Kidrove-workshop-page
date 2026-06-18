@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { workshopDetails } from '../data/workshopData';
 
 const details = [

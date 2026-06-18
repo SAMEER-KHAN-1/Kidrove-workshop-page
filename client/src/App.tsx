@@ -1,4 +1,4 @@
-import React from 'react';
+
 import HeroSection from './components/HeroSection';
 import WorkshopInfo from './components/WorkshopInfo';
 import LearningOutcomes from './components/LearningOutcomes';
