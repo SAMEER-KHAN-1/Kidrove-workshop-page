@@ -54,7 +54,7 @@ function RegistrationForm() {
 
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://kidrove-workshop-page.onrender.com';
       const res = await fetch(`${apiUrl}/api/enquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
