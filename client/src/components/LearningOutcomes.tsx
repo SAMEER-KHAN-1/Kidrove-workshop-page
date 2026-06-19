@@ -1,4 +1,3 @@
-
 import { learningOutcomes } from '../data/workshopData';
 import { SectionHeader } from './WorkshopInfo';
 

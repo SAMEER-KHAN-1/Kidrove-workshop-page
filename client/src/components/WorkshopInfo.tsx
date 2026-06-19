@@ -1,4 +1,3 @@
-
 import { workshopDetails } from '../data/workshopData';
 
 const details = [

@@ -1,5 +1,5 @@
-
 import { workshopDetails } from '../data/workshopData';
+import { scrollToSection } from '../utils/scroll';
 
 interface ChipProps {
   icon: string;
@@ -28,7 +28,6 @@ function HeroSection() {
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
       style={{ background: 'linear-gradient(140deg, #060c1f 0%, #1a1050 55%, #2d1b69 100%)' }}
     >
-      {/* Subtle grid pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -39,7 +38,6 @@ function HeroSection() {
       />
 
       <div className="relative max-w-3xl mx-auto px-6 py-20 text-center w-full">
-        {/* Live badge */}
         <div className="inline-flex items-center gap-2 bg-orange-500/12 border border-orange-500/25 px-4 py-1.5 rounded-full mb-8">
           <span className="w-2 h-2 bg-orange-500 rounded-full shadow-[0_0_8px_#f97316]" />
           <span className="text-orange-400 text-xs font-semibold tracking-widest uppercase">
@@ -60,7 +58,6 @@ function HeroSection() {
           into AI and robotics for kids aged 8–14.
         </p>
 
-        {/* Info chips */}
         <div className="flex flex-wrap gap-3 justify-center mb-12">
           <Chip icon="👦">Age {workshopDetails.ageGroup}</Chip>
           <Chip icon="📅">{workshopDetails.duration}</Chip>
@@ -71,12 +68,14 @@ function HeroSection() {
         <div className="flex gap-4 justify-center flex-wrap">
           <a
             href="#register"
+            onClick={(e) => { e.preventDefault(); scrollToSection('register'); }}
             className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-colors shadow-lg shadow-orange-500/30"
           >
             Register Now →
           </a>
           <a
             href="#details"
+            onClick={(e) => { e.preventDefault(); scrollToSection('details'); }}
             className="bg-white/7 border border-white/15 hover:bg-white/12 text-white/85 px-8 py-4 rounded-xl text-lg transition-colors"
           >
             Learn More ↓
