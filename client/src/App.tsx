@@ -1,11 +1,17 @@
 
+import { useEffect } from 'react';
 import HeroSection from './components/HeroSection';
 import WorkshopInfo from './components/WorkshopInfo';
 import LearningOutcomes from './components/LearningOutcomes';
 import FAQSection from './components/FAQSection';
 import RegistrationForm from './components/RegistrationForm';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://kidrove-workshop-page.onrender.com';
+
 function App() {
+  useEffect(() => {
+    fetch(`${API_URL}/api/health`).catch(() => {});
+  }, []);
   return (
     <div className="font-sans antialiased bg-slate-50 text-slate-900">
       {/* Fixed navbar */}

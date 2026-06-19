@@ -19,6 +19,7 @@ function RegistrationForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [slowConnection, setSlowConnection] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -53,6 +54,8 @@ function RegistrationForm() {
     }
 
     setLoading(true);
+    setSlowConnection(false);
+    const slowTimer = setTimeout(() => setSlowConnection(true), 5000);
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'https://kidrove-workshop-page.onrender.com';
       const res = await fetch(`${apiUrl}/api/enquiry`, {
@@ -61,14 +64,16 @@ function RegistrationForm() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      if (res.ok) { 
-        setSubmitted(true); 
-      } else { 
-        setErrors({ general: data.message || 'Something went wrong.' }); 
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setErrors({ general: data.message || 'Something went wrong.' });
       }
     } catch {
       setErrors({ general: 'Network error. Please try again.' });
     } finally {
+      clearTimeout(slowTimer);
+      setSlowConnection(false);
       setLoading(false);
     }
   };
@@ -135,6 +140,12 @@ function RegistrationForm() {
           >
             {loading ? 'Submitting...' : 'Register Now →'}
           </button>
+
+          {slowConnection && (
+            <p className="text-center text-yellow-400/80 text-xs mt-2">
+              Server is waking up, this may take up to 30 seconds...
+            </p>
+          )}
 
           <p className="text-center text-white/35 text-xs mt-4">
             No spam. We'll only contact you about this workshop.
