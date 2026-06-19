@@ -71,14 +71,12 @@ function HeroSection() {
         <div className="flex gap-4 justify-center flex-wrap">
           <a
             href="#register"
-            onClick={(e) => { e.preventDefault(); document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' }); }}
             className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-colors shadow-lg shadow-orange-500/30"
           >
             Register Now →
           </a>
           <a
             href="#details"
-            onClick={(e) => { e.preventDefault(); document.getElementById('details')?.scrollIntoView({ behavior: 'smooth' }); }}
             className="bg-white/7 border border-white/15 hover:bg-white/12 text-white/85 px-8 py-4 rounded-xl text-lg transition-colors"
           >
             Learn More ↓
